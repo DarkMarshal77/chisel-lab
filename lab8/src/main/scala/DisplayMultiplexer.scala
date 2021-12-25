@@ -14,6 +14,16 @@ class DisplayMultiplexer(maxCount: Int) extends Module {
 
   // *** your code starts here
 
+  val decoder = Module(new SevenSegDec())
+  val cnt = RegInit(0.U(2.W))
+  val value = RegInit(0.U(16.W))
+  when (cnt === 0.U) {
+    value := Cat(io.sum, io.price)
+  }
+  decoder.io.in := (value >> (cnt*4.U))(7, 0)
+  sevSeg := decoder.io.out
+  select := (1.U << cnt)
+  cnt := cnt + 1.U
 
   // *** your code ends here
 
