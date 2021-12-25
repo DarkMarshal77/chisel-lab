@@ -16,11 +16,21 @@ class Mux4 extends Module {
 
   // ***** your code starts here *****
 
-  // create a Mux4 component out of Mux2 components
-  // and connect the input and output ports.
+  val mux1 = Module(new Mux2())
+  mux1.io.a := io.a
+  mux1.io.b := io.b
+  mux1.io.sel := io.sel(0)
 
-  // below is dummy code to make this example compile
-  io.y := io.c
+  val mux2 = Module(new Mux2())
+  mux2.io.a := io.c
+  mux2.io.b := io.d
+  mux2.io.sel := io.sel(0)
+
+  val final_mux = Module(new Mux2())
+  final_mux.io.a := mux1.io.y
+  final_mux.io.b := mux2.io.y
+  final_mux.io.sel := io.sel(1)
+  io.y := final_mux.io.y
 
   // ***** your code ends here *****
 }
