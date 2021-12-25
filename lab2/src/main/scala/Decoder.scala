@@ -12,6 +12,13 @@ class Decoder extends Module {
 
   // ***** your code starts here *****
 
+  switch(sel) {
+    is (0.U) { dec := 1.U}
+    is (1.U) { dec := 2.U}
+    is (2.U) { dec := 4.U}
+    is (3.U) { dec := 8.U}
+  }
+
   // ***** your code ends here *****
 
   io.out := dec
